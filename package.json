@@ -1,0 +1,22 @@
+{
+  "name": "handled",
+  "version": "1.0.0",
+  "description": "async error handling",
+  "main": "handled.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fermentationist/handled.git"
+  },
+  "author": "fermentationist@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fermentationist/handled/issues"
+  },
+  "homepage": "https://github.com/fermentationist/handled#readme",
+  "dependencies": {
+    "jest": "^23.6.0"
+  }
+}

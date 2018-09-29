@@ -41,10 +41,9 @@ const handledModule = (() => {
 	const assignDotShortcut = (shortcut) => {
 		Object.defineProperty(Object.prototype, shortcut, {
 			get: function (){
-				const promiseTest = x => typeof x.then === "function";
-				const isPromise = promiseTest(this);
+				const isPromise = this instanceof Promise;
 				const isFunction = typeof this === "function";
-				const isPromiseArray = Array.isArray(this) && this.every(x => promiseTest(x));
+				const isPromiseArray = Array.isArray(this) && this.every(x => x instanceof Promise);
 				return isPromise ? handlePromise(this) : 
 					isFunction ? handleAsyncFn(this) : 
 					isPromiseArray  ? handleAll(this):
