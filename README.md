@@ -2,7 +2,7 @@
 
 __handled__ is a convenient and simple error handler for node.js. You can pass __handled__ a Promise, an array of Promises, or an asynchronous function, and it will return the input, wrapped in a try/catch. 
 
-__handled__ is set up to use a shortcut, allowing it to be invoked as a property of the global *Object*, using dot-notation. This makes it easy to add error handling without the need to enclose blocks of code in parentheses.
+__handled__ is set up to use a shortcut, allowing it to be invoked as a property of the global `Object`, using dot-notation. This makes it easy to add error handling without the need to enclose blocks of code in parentheses.
 
 ## Install
 
@@ -30,9 +30,9 @@ const handledPromise = examplePromise.ø;
 
 ```
 
-The shortcut will recognize the type of argument passed, and will work whether it is used on a Promise, array of Promises, or an asychronous function, deciding whether to invoke *handlePromise*, *handleAll*, or *handleAsyncFn*, respectively.
+The shortcut will recognize the type of argument passed, and will work whether it is used on a Promise, array of Promises, or an asychronous function, deciding whether to invoke `handlePromise`, `handleAll`, or `handleAsyncFn`, respectively.
 
-You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the *assignDotShortcut* function thusly:
+You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the `assignDotShortcut` function thusly:
 
 ```javascript
 const {assignDotShortcut} = require("handled");
