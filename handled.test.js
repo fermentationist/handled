@@ -3,7 +3,7 @@ const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("./
 /*=============*** Functions to Aid Testing ***=============*/
 
 // returns a promise that will resolve, with a setTimeout to simulate an asynchronous response
-let resolvingPromise = async (input, timeout = 0) => {
+let resolvingPromise = async (input, timeout = 500) => {
 	const delayedOutput = await new Promise((resolve, reject) => {
 		return setTimeout(() => resolve(input), timeout);
 	})
@@ -11,7 +11,7 @@ let resolvingPromise = async (input, timeout = 0) => {
 };
 
 // returns a promise that will reject, with a setTimeout to simulate an asynchronous response
-let rejectingPromise = async (input, timeout = 0) => {
+let rejectingPromise = async (input, timeout = 500) => {
 	const delayedOutput = await new Promise((resolve, reject) => {
 		setTimeout(() => reject(input), timeout)
 	})
@@ -28,7 +28,7 @@ describe("*** Helper function tests ***", () => {
 	// test for resolvingPromise function
 	test("01 resolvingPromise(testInput) returns a Promise that resolves with the value testInput", async () => {
 		expect.assertions(1);
-		return await expect(resolvingPromise(testInput)).resolves.toEqual(testInput);
+		await expect(resolvingPromise(testInput)).resolves.toEqual(testInput);
 	});
 	// test for rejectingPromise function
 	test("02 rejectingPromise(testInput) returns a Promise that rejects with the value errorText", () => {
@@ -93,21 +93,6 @@ describe("*** Tests for handleAll ***", () => {
 			});
 	});
 
-	// test("03 (dot-property-shortcut test using default shortcut .ø) \nresolvedPromise.ø returns a Promise that resolves to the value testInput", async () => {
-	// 	expect.assertions(1);
-	// 	return await expect(resolvedPromise.ø).resolves.toEqual(testInput);
-	// });
-
-	// test("04 handlePromise(resolvedPromise) returns a Promise that *resolves* with the value errorText", async () => {
-	// 	expect.assertions(2);
-	// 	expect(handlePromise(rejectedPromise) instanceof Promise).toBe(true);
-	// 	return await expect(handlePromise(rejectedPromise)).resolves.toEqual("errorText");
-	// });
-
-	// test("05 (dot-property-shortcut test using default shortcut .ø) \nrejectedPromise.ø returns a Promise that *resolves* to the value testInput", async () => {
-	// 	expect.assertions(1);
-	// 	return await expect(rejectedPromise.ø).resolves.toEqual(errorText);
-	// });
 });
 
 
