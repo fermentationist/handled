@@ -15,11 +15,10 @@ $ npm install handled
 After installation, you will need to require __handled__ in your file in order to use it. If you would like to access any or all the four functions that comprise the package individually, you should use a destructuring assignment like so:
 
 ```javascript
-const {
-	handlePromise, 
-	handleAll, 
-	handleAsyncFn, 
-	assignDotShortcut} = require("handled");
+const {	handlePromise, 
+		handleAll, 
+		handleAsyncFn, 
+		assignDotShortcut} = require("handled");
 ```
 
 ## The Dot-Notation Shortcut - ø
@@ -30,11 +29,11 @@ Though you can import and use the included functions separately, __handled__ is 
 const handled = require("handled");
 
 const examplePromise = Promise.reject("example error message");
-const handledPromise = example.ø;
+const handledPromise = examplePromise.ø;
 
 ```
 
-The shortcut will recognize the type of argument passed, and will work whether it is used on a Promise, array of Promises, or an asychronous function, deciding whether to invoke *handlePromise*, *handleAll*, or *handleAsyncFn*.
+The shortcut will recognize the type of argument passed, and will work whether it is used on a Promise, array of Promises, or an asychronous function, deciding whether to invoke *handlePromise*, *handleAll*, or *handleAsyncFn*, respectively.
 
 You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the *assignDotShortcut* function thusly:
 
@@ -44,9 +43,9 @@ const {assignDotShortcut} = require("handled");
 assignDotShortcut("myShortcut");
 
 const exampleFunction = async function (){
-	//async stuff
+	return await //async stuff
 }
-const handledFunction = example.myShortcut;
+const handledFunction = exampleFunction.myShortcut;
 ```
 
 
