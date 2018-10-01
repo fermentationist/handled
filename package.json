@@ -2,7 +2,7 @@
   "name": "handled",
   "version": "1.0.0",
   "description": "async error handling",
-  "main": "handled.js",
+  "main": "./lib/handled.js",
   "scripts": {
     "test": "jest"
   },
@@ -10,13 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/fermentationist/handled.git"
   },
-  "author": "fermentationist@gmail.com",
-  "license": "ISC",
+  "author": "Dennis Hodges <fermentationist@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fermentationist/handled/issues"
   },
   "homepage": "https://github.com/fermentationist/handled#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "jest": "^23.6.0"
   }
 }
