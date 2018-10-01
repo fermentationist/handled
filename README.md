@@ -47,19 +47,19 @@ const handledFunction = exampleFunction.myShortcut;
 
 ## API Reference
 
-__`handlePromise(promise)`__
+### `handlePromise(promise)`
 
 description...
 
-__`handleAll(array)`__
+### `handleAll(array)`
 
 description...
 
-__`handleAsyncFn(function)`__
+### `handleAsyncFn(function)`
 
 description...
 
-__`assignDotShortcut(string)`__
+### `assignDotShortcut(string)` 
 
 description...
 
