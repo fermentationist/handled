@@ -45,27 +45,27 @@ const exampleFunction = async function (){
 const handledFunction = exampleFunction.myShortcut;
 ```
 
-### API Reference
+## API Reference
 
-####`handlePromise(promise)`
-
-description...
-
-####`handleAll(array)`
+###`handlePromise(promise)`
 
 description...
 
-####`handleAsyncFn(function)`
+###`handleAll(array)`
 
 description...
 
-####`assignDotShortcut(string)`
+###`handleAsyncFn(function)`
+
+description...
+
+###`assignDotShortcut(string)`
 
 description...
 
 ## License
 
-####Copyright © 2018 Dennis Hodges - <fermentationist@gmail.com>
+###Copyright © 2018 Dennis Hodges - <fermentationist@gmail.com>
 
 __The MIT License__
 
