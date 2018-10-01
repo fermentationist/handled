@@ -15,10 +15,7 @@ $ npm install handled
 After installation, you will need to require __handled__ in your file in order to use it. If you would like to access any or all the four functions that comprise the package individually, you should use a destructuring assignment like so:
 
 ```javascript
-const {	handlePromise, 
-		handleAll, 
-		handleAsyncFn, 
-		assignDotShortcut} = require("handled");
+const {	handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("handled");
 ```
 
 ## The Dot-Notation Shortcut - ø
