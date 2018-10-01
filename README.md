@@ -47,25 +47,25 @@ const handledFunction = exampleFunction.myShortcut;
 
 ## API Reference
 
-###`handlePromise(promise)`
+__`handlePromise(promise)`__
 
 description...
 
-###`handleAll(array)`
+__`handleAll(array)`__
 
 description...
 
-###`handleAsyncFn(function)`
+__`handleAsyncFn(function)`__
 
 description...
 
-###`assignDotShortcut(string)`
+__`assignDotShortcut(string)`__
 
 description...
 
 ## License
 
-###Copyright © 2018 Dennis Hodges - <fermentationist@gmail.com>
+__Copyright © 2018 Dennis Hodges__ - <fermentationist@gmail.com>
 
 __The MIT License__
 
