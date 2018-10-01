@@ -6,12 +6,14 @@ const handledModule = (() => {
 				.then(data => data)
 				.catch(err => {
 					console.log("\x1b[31m", "ø error:", err, "\n ø", promiseToBeHandled);
-					return console.log("\x1b[0m") && err;
+					console.log("\x1b[0m"); 
+					return err;
 			});
 		}
 		catch (err) {
 			console.log("\x1b[31m", "error in \"handlePromise\": ", err);
-			return console.log("\x1b[0m") && err;
+			console.log("\x1b[0m"); 
+			return err;
 		}
 	}
 
@@ -22,7 +24,8 @@ const handledModule = (() => {
 		}
 		catch (err) {
 			console.log("\x1b[31m", "error in \"handleAll\": ", err);
-			return console.log("\x1b[0m") && err;
+			console.log("\x1b[0m"); 
+			return err;
 		}
 	}
 
@@ -33,7 +36,8 @@ const handledModule = (() => {
 			}
 			catch(err){
 				console.log("\x1b[31m", "ø error:", err);
-				return console.log("\x1b[0m") && err;
+				console.log("\x1b[0m"); 
+				return err;
 			}
 		}
 	}
