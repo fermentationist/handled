@@ -65,7 +65,7 @@ description...
 
 ## License
 
-__Copyright © 2018 Dennis Hodges__ - <fermentationist@gmail.com>
+### Copyright © 2018 Dennis Hodges - <fermentationist@gmail.com>
 
 __The MIT License__
 
