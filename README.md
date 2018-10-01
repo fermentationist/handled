@@ -1,4 +1,4 @@
-#handled
+# handled
 
 __handled__ is a convenient and simple error handler for node.js. You can pass __handled__ a Promise, an array of Promises, or an asynchronous function, and it will return the input, wrapped in a try/catch. 
 
