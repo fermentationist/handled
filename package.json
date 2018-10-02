@@ -2,7 +2,7 @@
   "name": "handled",
   "version": "1.0.0",
   "description": "async error handling",
-  "main": "./lib/",
+  "main": "./lib/handled.js",
   "scripts": {
     "test": "jest"
   },
