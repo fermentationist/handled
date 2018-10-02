@@ -1,4 +1,4 @@
-const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("../lib/handled.js");
+const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("handled");
 
 /*=============*** Functions to Aid Testing ***=============*/
 
