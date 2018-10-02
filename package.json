@@ -2,7 +2,7 @@
   "name": "handled",
   "version": "1.0.0",
   "description": "async error handling",
-  "main": "./lib",
+  "main": "./lib/handled.js",
   "scripts": {
     "test": "jest"
   },
@@ -10,6 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/fermentationist/handled.git"
   },
+  "keywords": [
+    "error",
+    "handler",
+    "handled",
+    "async",
+    "async function",
+    "asynchronous",
+    "promise",
+    "catch",
+    "simple",
+    "api",
+    "error handling"
+  ],
   "author": "Dennis Hodges <fermentationist@gmail.com>",
   "license": "MIT",
   "bugs": {
