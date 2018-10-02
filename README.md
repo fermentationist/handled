@@ -4,11 +4,15 @@ __handled__ is a convenient and simple error handler for node.js. You can pass _
 
 __handled__ is set up to use a shortcut, allowing it to be invoked as a property of the global `Object`, using dot-notation. This makes it easy to add error handling without the need to enclose blocks of code in parentheses.
 
+---
+
 ## Installation
 
 ``` bash
 $ npm install handled
 ```
+
+---
 
 ## Using handled
 
@@ -45,27 +49,31 @@ const exampleFunction = async function (){
 const handledFunction = exampleFunction.myShortcut;
 ```
 
+---
+
 ## API Reference
 
-### `handlePromise(promise)`
+### `handlePromise(myPromise)` -or- `myPromise.ø`
 
-description...
+Accepts a `Promise` and returns it, chained with a `.catch()` statement for error handling.
 
-### `handleAll(array)`
+### `handleAll(promiseArray)` -or- `promiseArray.ø`
 
-description...
+Accepts an `Array` of `Promises`, and returns a new `Array`, with a `.catch()` statement chained to each of the constituent elements, in their original order.
 
-### `handleAsyncFn(function)`
+### `handleAsyncFn(myFunction)` -or- `myFunction.ø`
 
-description...
+Accepts an `async function` and returns a new `async function` wrapper, with the original `function` nested within a `try/catch` block.
 
-### `assignDotShortcut(string)` 
+### `assignDotShortcut(myShortcut)` -or- `myShortcut.ø`
 
-description...
+Allows the user to implement a custom dot-notation shortcut for __handled__, in addition to the default slashed-o (`ø`) shortcut. This is done by defining a new property on the global `Object`, which invokes a "getter" that identifies the type of input as either a `Promise`, an `Array` of `Promises`, or and `asyc function` and invokes the appropriate __handled__ method to handle it. (If the value passed is none of the above, the original input is returned unchanged).
+
+---
 
 ## License
 
-### Copyright © 2018 Dennis Hodges - <fermentationist@gmail.com>
+### Copyright © 2018 [Dennis Hodges](fermentationist@gmail.com)
 
 __The MIT License__
 
