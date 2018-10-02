@@ -1056,8 +1056,8 @@ body .markdown-body
 .codehilite .il{color:#009999}
 .codehilite .gc{color:#999;background-color:#EAF2F5}
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="handled">handled<a class="headerlink" href="#handled" title="Permanent link"></a></h1>
-<p><strong>handled</strong> is a convenient and simple error handler for node.js. You can pass <strong>handled</strong> a Promise, an array of Promises, or an asynchronous function, and it will return the input, wrapped in a try/catch. </p>
-<p><strong>handled</strong> is set up to use a shortcut, allowing it to be invoked as a property of the global <code>Object</code>, using dot-notation. This makes it easy to add error handling without the need to enclose blocks of code in parentheses.</p>
+<p><strong>handled</strong> is a convenient and simple error handler for node.js. You can pass <strong>handled</strong> a <code>Promise</code>, an <code>Array</code> of <code>Promises</code>, or an <code>async function</code>, and it will return it with basic error handling added. </p>
+<p><strong>handled</strong> is set up to use a shortcut, allowing it to be invoked as a property of the global <code>Object</code>, using dot-notation. This makes it easy to add error handling without the need to nest blocks of code in parentheses.</p>
 <hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link"></a></h2>
 <div class="codehilite"><pre><span class="nv">$ </span>npm install handled
@@ -1065,19 +1065,19 @@ body .markdown-body
 
 <hr />
 <h2 id="using-handled">Using handled<a class="headerlink" href="#using-handled" title="Permanent link"></a></h2>
-<p>After installation, you will need to require <strong>handled</strong> in your file in order to use it. If you would like to access any or all the four functions that comprise the package individually, you should use a destructuring assignment like so:</p>
+<p>After installation, you will need to <code>require</code> <strong>handled</strong> in your file in order to use it. If you would like to access any or all of the four methods that comprise the package individually, you may use a destructuring assignment like so:</p>
 <div class="codehilite"><pre><span class="kr">const</span> <span class="p">{</span> <span class="nx">handlePromise</span><span class="p">,</span> <span class="nx">handleAll</span><span class="p">,</span> <span class="nx">handleAsyncFn</span><span class="p">,</span> <span class="nx">assignDotShortcut</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;handled&quot;</span><span class="p">);</span>
 </pre></div>
 
 <h3 id="the-dot-notation-shortcut-">The Dot-Notation Shortcut - ø<a class="headerlink" href="#the-dot-notation-shortcut-" title="Permanent link"></a></h3>
-<p>Though you can import and use the included functions separately, <em><strong>handled</strong> is designed to be used with a dot-notation shortcut</em>, so you need not break out the individual functions. By default, the lowercase &ldquo;slashed o&rdquo; symbol– <code>ø</code>  is set as the shortcut (Option-o on Mac). To use this way, simply require the package, and you are ready to go:</p>
+<p>Though you can import and use the included methods separately, <em><strong>handled</strong> is designed to be used with a dot-notation shortcut</em>, so you need not break out the individual methods. By default, the lowercase &ldquo;slashed-o&rdquo; symbol– <code>ø</code>  is set as the shortcut (Option-o on Mac). To use <strong>handled</strong> this way, simply require the package, and you are ready to go:</p>
 <div class="codehilite"><pre><span class="kr">const</span> <span class="nx">handled</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;handled&quot;</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">examplePromise</span> <span class="o">=</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;example error message&quot;</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">handledPromise</span> <span class="o">=</span> <span class="nx">examplePromise</span><span class="p">.</span><span class="nx">ø</span><span class="p">;</span>
 </pre></div>
 
-<p>The shortcut will recognize the type of argument passed, and will work whether it is used on a Promise, array of Promises, or an asychronous function, deciding whether to invoke <code>handlePromise</code>, <code>handleAll</code>, or <code>handleAsyncFn</code>, respectively.</p>
+<p>The shortcut will recognize the type of argument passed, and will work whether it is used on a <code>Promise</code>, <code>array of Promises</code>, or an asychronous <code>function</code>, deciding whether to invoke <code>handlePromise</code>, <code>handleAll</code>, or <code>handleAsyncFn</code>, respectively.</p>
 <p>You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the <code>assignDotShortcut</code> function thusly:</p>
 <div class="codehilite"><pre><span class="kr">const</span> <span class="p">{</span><span class="nx">assignDotShortcut</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;handled&quot;</span><span class="p">);</span>
 
@@ -1092,16 +1092,16 @@ body .markdown-body
 <hr />
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link"></a></h2>
 <h3 id="handlepromisemypromise-or-mypromise"><code>handlePromise(myPromise)</code> -or- <code>myPromise.ø</code><a class="headerlink" href="#handlepromisemypromise-or-mypromise" title="Permanent link"></a></h3>
-<p>Accepts a <code>Promise</code> and returns it, chained with a <code>catch</code> statement.</p>
+<p>Accepts a <code>Promise</code> and returns it, chained with a <code>.catch()</code> statement for error handling.</p>
 <h3 id="handleallpromisearray-or-promisearray"><code>handleAll(promiseArray)</code> -or- <code>promiseArray.ø</code><a class="headerlink" href="#handleallpromisearray-or-promisearray" title="Permanent link"></a></h3>
-<p>Accepts an <code>Array</code> of <code>Promise</code>s, and returns a new <code>Array</code>, with each a <code>catch</code> statement chained to each of the elements.</p>
+<p>Accepts an <code>Array</code> of <code>Promises</code>, and returns them in a new <code>Array</code>, with a <code>.catch()</code> statement chained to each of them, in their original order.</p>
 <h3 id="handleasyncfnmyfunction-or-myfunction"><code>handleAsyncFn(myFunction)</code> -or- <code>myFunction.ø</code><a class="headerlink" href="#handleasyncfnmyfunction-or-myfunction" title="Permanent link"></a></h3>
-<p>description&hellip;</p>
-<h3 id="assigndotshortcutmyshortcut-or-myshortcut"><code>assignDotShortcut(myShortcut)</code> -or- <code>myShortcut.ø</code><a class="headerlink" href="#assigndotshortcutmyshortcut-or-myshortcut" title="Permanent link"></a></h3>
-<p>description&hellip;</p>
+<p>Accepts an <code>async function</code> and returns a new <code>async function</code> wrapper, with the original <code>function</code> nested within a <code>try/catch</code> block.</p>
+<h3 id="assigndotshortcutmyshortcut"><code>assignDotShortcut(myShortcut)</code><a class="headerlink" href="#assigndotshortcutmyshortcut" title="Permanent link"></a></h3>
+<p>Allows the user to implement a custom dot-notation shortcut for <strong>handled</strong>, in addition to the default &ldquo;slashed-o&rdquo; (<code>ø</code>) shortcut. This is done by defining a new property on the global <code>Object</code>, which invokes a &ldquo;getter&rdquo; that identifies the type of input as either a <code>Promise</code>, an <code>Array</code> of <code>Promises</code>, or an <code>asyc function</code> and invokes the appropriate <strong>handled</strong> method to handle it. (If the value passed is none of the above, the original input is returned unchanged).</p>
 <hr />
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link"></a></h2>
-<h3 id="copyright-2018-dennis-hodges">Copyright © 2018 <a href="/Users/fermentationist/Repos/handled/fermentationist%40gmail.com">Dennis Hodges</a><a class="headerlink" href="#copyright-2018-dennis-hodges" title="Permanent link"></a></h3>
+<h3 id="copyright-2018-dennis-hodges">Copyright © 2018 <a href="https://github.com/fermentationist">Dennis Hodges</a><a class="headerlink" href="#copyright-2018-dennis-hodges" title="Permanent link"></a></h3>
 <p><strong>The MIT License</strong></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &ldquo;Software&rdquo;), to deal
