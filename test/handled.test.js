@@ -1,4 +1,17 @@
-const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("handled");
+const consoleCopy = Object.assign({}, console);
+const print = new Function("input", "Object.assign({}, console).log(input)");
+// const print = input => consoleCopy(input);
+console.log(print)
+print("testasdfasgasdgfasgasd@#$%^€^&#$%&#$&@$&#$^%%&@%&$^")
+const mockLog = jest.fn(input => input);
+console.error("print*****************", print);
+console.log = mockLog;
+// const captureLog = function (input) {
+// 	log += input
+// }
+// console["log"] = jest.fn(captureLog);
+console.log("first attempt...")
+const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("../lib/handled");
 
 /*=============*** Functions to Aid Testing ***=============*/
 
@@ -23,6 +36,14 @@ const testInput = "testValue";
 const errorText = "errorText";
 const resolvedPromise = asyncFnResolves(testInput);
 const rejectedPromise = asyncFnRejects(errorText);
+
+
+// let log = "";
+// const captureLog = function (input) {
+// 	log += input
+// }
+// console["log"] = jest.fn(captureLog);
+// const captureLog = input => log += input;
 
 describe("*** Helper function tests ***", () => {
 	// test for asyncFnResolves function
@@ -51,10 +72,21 @@ describe("*** Tests for handlePromise ***", () => {
 		return await expect(resolvedPromise.ø).resolves.toEqual(testInput);
 	});
 
-	test("03 handlePromise(resolvedPromise) returns a Promise that *resolves* with the value errorText", async () => {
-		expect.assertions(2);
-		expect(handlePromise(rejectedPromise) instanceof Promise).toBe(true);
-		return await expect(handlePromise(rejectedPromise)).resolves.toEqual("errorText");
+	test("03 handlePromise(resolvedPromise) returns a Promise that *resolves*, despite error", async function (){
+		// expect.assertions(3);
+		print(console.log.results)
+		console.log.mockClear();
+		let log = console.log.results;
+		// const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require.call(this, "../lib/handled");
+		// this.log = "";
+		// const captureLog = function (input){
+		// 	log += input;
+		// }
+		// console["log"] = jest.fn(captureLog);
+		const handledPromise = handlePromise(resolvedPromise);
+		// console.log("wrong answer");
+		return await expect(handledPromise).resolves && expect(log).toEqual(errorText);
+		// await handledPromise.then(() =>expect(log).toEqual(errorText));
 	});
 
 	test("04 (shortcut test) \nrejectedPromise.ø returns a Promise that *resolves* to the value testInput", async () => {
@@ -154,12 +186,6 @@ describe("*** Tests for assignDotShortcut ***", () =>{
 	});
 });
 
-
-
-
-
-
-
-
+afterAll(() => print(console.log.calls))
 
 
