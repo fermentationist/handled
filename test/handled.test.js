@@ -1,22 +1,25 @@
-const consoleCopy = Object.assign({}, console);
+// const consoleCopy = Object.assign({}, console);
 const print = new Function("input", "Object.assign({}, console).log(input)");
 // const print = input => consoleCopy(input);
-console.log(print)
-print("testasdfasgasdgfasgasd@#$%^€^&#$%&#$&@$&#$^%%&@%&$^")
-const mockLog = jest.fn(input => input);
-console.error("print*****************", print);
-console.log = mockLog;
+// console.log(print)
+// print("testasdfasgasdgfasgasd@#$%^€^&#$%&#$&@$&#$^%%&@%&$^")
+// console.error = jest.fn();
+// beforeEach(() => {
+//   console.error.mockClear();
+// });
 // const captureLog = function (input) {
 // 	log += input
 // }
 // console["log"] = jest.fn(captureLog);
-console.log("first attempt...")
-const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("../lib/handled");
 
+const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("../lib/handled");
+const spy = jest.spyOn(global.console, "error");
+// console.error("first attempt...")
+// beforeEach(() => spy.mockClear());
 /*=============*** Functions to Aid Testing ***=============*/
 
 // returns a promise that will resolve, with a setTimeout to simulate an asynchronous response
-const asyncFnResolves = async (input, timeout = 200) => {
+const asyncFnResolves = async (input, timeout = 0) => {
 	const delayedOutput = await new Promise((resolve, reject) => {
 		return setTimeout(() => resolve(input), timeout);
 	})
@@ -24,14 +27,15 @@ const asyncFnResolves = async (input, timeout = 200) => {
 };
 
 // returns a promise that will reject, with a setTimeout to simulate an asynchronous response
-const asyncFnRejects = async (input, timeout = 200) => {
+const asyncFnRejects = async (input, timeout = 0) => {
 	const delayedOutput = await new Promise((resolve, reject) => {
 		setTimeout(() => reject(input), timeout)
 	})
 	return delayedOutput;
 };
 
-// some test values
+// some test value
+let log = spy.mock.calls;
 const testInput = "testValue";
 const errorText = "errorText";
 const resolvedPromise = asyncFnResolves(testInput);
@@ -72,22 +76,28 @@ describe("*** Tests for handlePromise ***", () => {
 		return await expect(resolvedPromise.ø).resolves.toEqual(testInput);
 	});
 
-	test("03 handlePromise(resolvedPromise) returns a Promise that *resolves*, despite error", async function (){
-		// expect.assertions(3);
-		print(console.log.results)
-		console.log.mockClear();
-		let log = console.log.results;
+	test("03 handlePromise(resolvedPromise) returns a Promise that *resolves*, printing errorText to console.error", async function (){
+		expect.assertions(1);
+		// const spy = jest.spyOn(global.console, "error");
+		// print(spy.mock.calls)
+		
+		// log = spy.mock.calls;
 		// const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require.call(this, "../lib/handled");
 		// this.log = "";
 		// const captureLog = function (input){
 		// 	log += input;
 		// }
 		// console["log"] = jest.fn(captureLog);
-		const handledPromise = handlePromise(resolvedPromise);
+		const handledPromise = handlePromise(rejectedPromise);
 		// console.log("wrong answer");
-		return await expect(handledPromise).resolves && expect(log).toEqual(errorText);
-		// await handledPromise.then(() =>expect(log).toEqual(errorText));
+		// await expect(handledPromise).resolves;
+		return await handledPromise.then(() => expect(log[0][0]).toEqual(errorText));
 	});
+		// return await handledPromise.then(() => {
+		// 	expect(log).toEqual(errorText);
+		// })
+		// await handledPromise.then(() =>expect(log).toEqual(errorText));
+	
 
 	test("04 (shortcut test) \nrejectedPromise.ø returns a Promise that *resolves* to the value testInput", async () => {
 		expect.assertions(2);
@@ -186,6 +196,6 @@ describe("*** Tests for assignDotShortcut ***", () =>{
 	});
 });
 
-afterAll(() => print(console.log.calls))
+afterAll(() => print(log))
 
 
