@@ -1,21 +1,10 @@
-// const consoleCopy = Object.assign({}, console);
-const print = new Function("input", "Object.assign({}, console).log(input)");
-// const print = input => consoleCopy(input);
-// console.log(print)
-// print("testasdfasgasdgfasgasd@#$%^€^&#$%&#$&@$&#$^%%&@%&$^")
-// console.error = jest.fn();
-// beforeEach(() => {
-//   console.error.mockClear();
-// });
-// const captureLog = function (input) {
-// 	log += input
-// }
-// console["log"] = jest.fn(captureLog);
-
 const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("../lib/handled");
+// const print = new Function("input", "Object.assign({}, console).log(input)");
+
+// create a mock of console.error to test error logging side effects
 const spy = jest.spyOn(global.console, "error");
-// console.error("first attempt...")
-// beforeEach(() => spy.mockClear());
+beforeEach(() => spy.mockClear());
+
 /*=============*** Functions to Aid Testing ***=============*/
 
 // returns a promise that will resolve, with a setTimeout to simulate an asynchronous response
@@ -34,20 +23,11 @@ const asyncFnRejects = async (input, timeout = 0) => {
 	return delayedOutput;
 };
 
-// some test value
-let log = spy.mock.calls;
+// some test values
 const testInput = "testValue";
 const errorText = "errorText";
 const resolvedPromise = asyncFnResolves(testInput);
 const rejectedPromise = asyncFnRejects(errorText);
-
-
-// let log = "";
-// const captureLog = function (input) {
-// 	log += input
-// }
-// console["log"] = jest.fn(captureLog);
-// const captureLog = input => log += input;
 
 describe("*** Helper function tests ***", () => {
 	// test for asyncFnResolves function
@@ -78,31 +58,17 @@ describe("*** Tests for handlePromise ***", () => {
 
 	test("03 handlePromise(resolvedPromise) returns a Promise that *resolves*, printing errorText to console.error", async function (){
 		expect.assertions(1);
-		// const spy = jest.spyOn(global.console, "error");
-		// print(spy.mock.calls)
-		
-		// log = spy.mock.calls;
-		// const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require.call(this, "../lib/handled");
-		// this.log = "";
-		// const captureLog = function (input){
-		// 	log += input;
-		// }
-		// console["log"] = jest.fn(captureLog);
 		const handledPromise = handlePromise(rejectedPromise);
-		// console.log("wrong answer");
-		// await expect(handledPromise).resolves;
+		const log = spy.mock.calls;
 		return await handledPromise.then(() => expect(log[0][0]).toEqual(errorText));
 	});
-		// return await handledPromise.then(() => {
-		// 	expect(log).toEqual(errorText);
-		// })
-		// await handledPromise.then(() =>expect(log).toEqual(errorText));
-	
 
-	test("04 (shortcut test) \nrejectedPromise.ø returns a Promise that *resolves* to the value testInput", async () => {
+	test("04 (shortcut test) \nrejectedPromise.ø returns a Promise that *resolves*, printing errorText to console.error", async () => {
 		expect.assertions(2);
-		expect(rejectedPromise.ø).toEqual(handlePromise(rejectedPromise));
-		return await expect(rejectedPromise.ø).resolves.toEqual(errorText);
+		const handledPromise = handlePromise(rejectedPromise);
+		expect(rejectedPromise.ø).toEqual(handledPromise);
+		const log = spy.mock.calls;
+		return await rejectedPromise.ø.then(() => expect(log[0][0]).toEqual(errorText));
 	});
 
 });
@@ -121,20 +87,26 @@ describe("*** Tests for handleAll ***", () => {
 		expect(handleAll(promiseArray).every(arrayItem => arrayItem instanceof Promise)).toBe(true);
 	});
 
-	test("02 handleAll(promiseArray) returns an array of Promises that resolve to an array containing the return value of each promise in the original array, in order", async () => {
-		expect.assertions(1);
-		return await Promise.all(handleAll(promiseArray))
+	test("02 handleAll(promiseArray) returns an array of Promises that resolve to an array containing the return value of each promise in the original array, in order. Rejecting promises cause errors to be printed to console.error", async () => {
+		expect.assertions(2);
+		const handledAll = handleAll([...promiseArray]);
+		const log = spy.mock.calls;
+		return await Promise.all(handledAll)
 			.then(outputArray => {
-				expect(outputArray).toEqual(["testValue", "errorText", "resolved 2", "rejected 2"])
+				expect(outputArray).toEqual(["testValue", undefined, "resolved 2", undefined]);
+				expect(log).toEqual([[errorText], ["rejected 2"]]);
 			});
 	});
 
-	test("03 (shortcut test) promiseArray.ø returns an array of Promises that resolve to an array containing the return value of each promise in the original array, in order", async () => {
+	test("03 (shortcut test) promiseArray.ø returns an array of Promises that resolve to an array containing the return value of each promise in the original array, in order. Rejecting promises cause errors to be printed to console.error", async () => {
 		expect.assertions(2);
-		expect(promiseArray.ø).toEqual(handleAll(promiseArray));
-		return await Promise.all(promiseArray.ø)
+		const handledAll = promiseArray.ø;
+		// expect(promiseArray.ø).toEqual(handledAll);
+		const log = spy.mock.calls;
+		return await Promise.all(handledAll)
 			.then(outputArray => {
-				expect(outputArray).toEqual(["testValue", "errorText", "resolved 2", "rejected 2"]);
+				expect(outputArray).toEqual(["testValue", undefined, "resolved 2", undefined]);
+				expect(log).toEqual([[errorText], ["rejected 2"]]);
 			});
 	});
 
@@ -165,21 +137,26 @@ describe("*** Tests for handleAsyncFn ***", () => {
 		expect(JSON.stringify(asyncFnRejects.ø)).toEqual(JSON.stringify(handleAsyncFn(asyncFnRejects)));
 	});
 
-	test("05 the result of handleAsyncFn(asyncFnRejects), invoked, will handle Promise rejection error and return errorText", async () =>{
+	test("05 the result of handleAsyncFn(asyncFnRejects), invoked, will handle Promise rejection error, printing errorText to console.error", async () =>{
 		const handledFn = await handleAsyncFn(asyncFnRejects);
-		const handledAndCalledFn = await handledFn(errorText);
+		const handledAndCalledFn = handledFn(errorText);
 		expect.assertions(1);
-		expect(handledAndCalledFn).toEqual("errorText");
+		const log = spy.mock.calls;
+		return await handledAndCalledFn.then(() => expect(log[0][0]).toEqual(errorText));
 	});
 
-	test("06 (shortcut test) the result of asyncFnRejects.ø, invoked, will handle Promise rejection error and return errorText", async () =>{
+	test("06 (shortcut test) the result of asyncFnRejects.ø, invoked, will handle Promise rejection error, printing errorText to console.error", async () =>{
+		const log = spy.mock.calls;
 		const handledFn = await handleAsyncFn(asyncFnRejects);
 		const handledFnSC = asyncFnRejects.ø;
-		const handledAndCalledFn = await handledFn(errorText);
-		const handledAndCalledFnSC = await handledFnSC(errorText);
+		const handledAndCalledFn = handledFn(errorText);
+		const handledAndCalledFnSC = handledFnSC(errorText);
 		expect.assertions(2);
-		expect(handledAndCalledFnSC).toEqual("errorText");
-		expect(JSON.stringify(handledAndCalledFn)).toEqual(JSON.stringify(handledAndCalledFnSC))
+		await handledAndCalledFnSC.then(async () => {
+			expect(log[0][0]).toEqual("errorText");
+			expect(JSON.stringify(await handledAndCalledFn)).toEqual(JSON.stringify(await handledAndCalledFnSC))
+		})
+		
 	});
 });
 
@@ -196,6 +173,5 @@ describe("*** Tests for assignDotShortcut ***", () =>{
 	});
 });
 
-afterAll(() => print(log))
 
 
