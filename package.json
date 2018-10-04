@@ -1,6 +1,6 @@
 {
   "name": "handled",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "async error handling",
   "main": "./lib/handled.js",
   "scripts": {
@@ -29,8 +29,7 @@
     "url": "https://github.com/fermentationist/handled/issues"
   },
   "homepage": "https://github.com/fermentationist/handled#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "jest": "^23.6.0"
   }
