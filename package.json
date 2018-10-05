@@ -20,14 +20,12 @@
     "promise",
     "catch",
     "simple",
+    "shortcut",
     "api",
     "error handling",
     "try/catch",
-    "shortcut",
-    "UnhandledPromiseRejectionWarning",
-    "unhandled",
-    "rejection",
-    "warning"
+    "unhandledPromiseRejectionWarning",
+    "unhandled promise rejection warning"
   ],
   "author": "Dennis Hodges <fermentationist@gmail.com>",
   "license": "MIT",
