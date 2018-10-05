@@ -1,4 +1,4 @@
-const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("handled");
+const {handlePromise, handleAll, handleAsyncFn, assignDotShortcut} = require("../lib/handled.js");
 
 // create a mock of console.error to test error logging side effects
 const spy = jest.spyOn(global.console, "error");
