@@ -26,7 +26,7 @@ const {	handlePromise, handleAll, handleAsyncFn, assignDotShortcut, assignPromis
 
 ### The Dot-Notation Shortcut - ø
 
-Though you can import and use the included methods separately, *__handled__ is designed to be used with a dot-notation shortcut*, so you need not break out the individual methods. By default, the lowercase "slashed-o" symbol– `ø`  is set as the shortcut (Option-o on Mac). To use __handled__ this way, simply require the package, and you are ready to go:
+Though you can import and use the included methods separately, *__handled__ is designed to be used with a convenient dot-notation shortcut*. By default, the lowercase "slashed-o" symbol– `ø`  is set as the shortcut (Option-o on Mac). To use __handled__ this way, simply require the package, and you are ready to go:
 
 ```javascript
 const handled = require("handled");
@@ -36,7 +36,7 @@ const handledPromise = examplePromise.ø;
 
 ```
 
-The shortcut will recognize the type of argument passed, and will work whether it is used on a `Promise`, `array of Promises`, or an asynchronous `function`, by deciding whether to invoke `handlePromise`, `handleAll`, or `handleAsyncFn`, respectively.
+The shortcut will recognize the type of argument passed, and will work whether it is used on a `Promise`, `array of Promises`, or an asynchronous `function`, by deciding whether to invoke `handlePromise()`, `handleAll()`, or `handleAsyncFn()`, respectively.
 
 You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the `assignDotShortcut` function thusly:
 
