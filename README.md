@@ -38,7 +38,7 @@ const handledPromise = examplePromise.ø;
 
 The shortcut will recognize the type of argument passed, and will work whether it is used on a `Promise`, `array of Promises`, or an asynchronous `function`, by deciding whether to invoke `handlePromise()`, `handleAll()`, or `handleAsyncFn()`, respectively.
 
-You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the `assignDotShortcut` function thusly:
+You can add a different dot-notation shortcut if you want, by passing the desired shortcut, as a string, to the `assignDotShortcut()` function thusly:
 
 ```javascript
 const {assignDotShortcut} = require("handled");
@@ -95,17 +95,23 @@ Accepts an `async function` (or a standard `function`) and returns a new `async 
 
 Allows the user to implement a custom dot-notation shortcut for __handled__, in addition to the default "slashed-o" (`ø`) shortcut. This is done by defining a new property on `Object.prototype`, which invokes a "getter" that identifies the type of input as either a `Promise`, an `Array` of `Promises`, or an `async function` and invokes the appropriate __handled__ method to handle it. (If the value passed is none of the above, the original input is returned unchanged).
 
+* *myShortcut*: a `String`, to be set as a property name on Object.prototype, and used as a shortcut to call `handlePromise()`, `handleAll()`, or `handleAsyncFn()`.
+
 ---
 
 ### `assignPromiseHandler(myErrorHandler)`
 
 Allows the user to set a new default error handler `function` for `Promises`, to be used in calls to `handlePromise()` and `handleAll()`, when the optional *errorHandler* parameter is not passed.
 
+* *myErrorHandler*: an error handling `function`, that accepts one argument– the `Error` that has been thrown.
+
 ---
 
 ### `assignPromiseHandler(myErrorHandler)`
 
 Allows the user to set a new default error handler `function` to be used in calls to `handleAsyncFn()`, when the optional *errorHandler* parameter is not passed.
+
+* *myErrorHandler*: an error handling `function`, that accepts one argument– the `Error` that has been thrown.
 
 ---
 
